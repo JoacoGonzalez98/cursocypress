@@ -1,10 +1,10 @@
-describe('template spec', () => {
+describe('home spec', () => {
   beforeEach(()=>{
     cy.visit('http://localhost:3000/');
-    cy.wait(200);
+    cy.wait(500);
   })
 
-
+context("Seccion inicial", ()=>{
   it('el titulo de la pagina contenga el texto indicado', () => {
     cy.getByData("hero-heading").contains("Testing Next.js Applications with Cypress");
   })
@@ -14,6 +14,21 @@ describe('template spec', () => {
     cy.get("dt").eq(2).contains('Free and Open Source');
     cy.wait(500);
   })
+  })
 
 
+    context("Seccion de cursos", ()=>{
+      it("Curso: Testing Your First Next.js Application", ()=>{
+        cy.getByData("course-0").find("a").contains("Get started").click();
+        cy.location("pathname").should("equal", "/testing-your-first-application")
+      })
+      it("Curso: Testing Foundations", ()=>{
+        cy.getByData("course-1").find("a").contains("Get started").click();
+        cy.location("pathname").should("equal", "/testing-foundations")
+      })
+      it("Curso: Cypress Fundamentals", ()=>{
+        cy.getByData("course-2").find("a").contains("Get started").click();
+        cy.location("pathname").should("equal", "/cypress-fundamentals")
+      })
+    })
 })
